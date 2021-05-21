@@ -1,0 +1,29 @@
+<%- include('includes/head.ejs') %>
+
+<%- include('includes/navigation.ejs') %>
+
+    <h2 class="heading-text">CMS Portal Login</h2>
+
+    <p>Please login to your account. Your account must have administrative privilages to access the CMS Portal.</p>
+    <p>If you do not have an existing account, please contact the website administrator.</p>
+    <p>The default admin account for this demo is:</p>
+    <p>Email: admin@admin.com</p>
+    <p>Password: admin</p>
+
+    <form method="POST" action="/postCmsLogin">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+        <div class="form-field">
+            <label for="email">Email: </label>
+            <input type="text" placeholder="Enter Email" name="email" id="email" required>            
+        </div>
+        <div class="form-field">
+            <label for="password">Password: </label>
+            <input type="password" placeholder="Enter Password" name="password" id="password" required>
+        </div>
+        <div>
+            <button type="submit" class="btn">Login</button>
+        </div>
+    </form>
+    
+<%- include('includes/end.ejs') %>

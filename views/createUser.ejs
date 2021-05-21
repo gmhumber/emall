@@ -1,0 +1,25 @@
+<%- include('includes/head.ejs') %>
+
+<%- include('includes/navigation.ejs') %>
+
+<h2 class="heading-text">Create User Account</h2>
+
+<p>Please complete this form to create your new user account.</p>
+
+<form method="POST" action="/postCreateUser">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+    <div class="form-field">
+        <label for="email">Email: </label>
+        <input type="text" placeholder="Enter Email" name="email" id="email" required>            
+    </div>
+    <div class="form-field">
+        <label for="password">Password: </label>
+        <input type="password" placeholder="Enter Password" name="password" id="password" required>
+    </div>
+    <div>
+        <button type="submit" class="btn">Create User</button>
+    </div>
+</form>
+    
+<%- include('includes/end.ejs') %>

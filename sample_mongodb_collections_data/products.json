@@ -1,0 +1,33 @@
+[{
+  "_id": {
+    "$oid": "5ff6411aeb96fc4654c69bbc"
+  },
+  "name": "Bookshelf",
+  "description": "5-shelves maple bookshelf.",
+  "price": "59.99",
+  "sku": "B506"
+},{
+  "_id": {
+    "$oid": "5ff64144eb96fc4654c69bbd"
+  },
+  "name": "Chair",
+  "description": "Comfortable office chair.",
+  "price": "89.99",
+  "sku": "C890"
+},{
+  "_id": {
+    "$oid": "5ff64161eb96fc4654c69bbe"
+  },
+  "name": "Jeans",
+  "description": "New blue jeans.",
+  "price": "19.99",
+  "sku": "J501"
+},{
+  "_id": {
+    "$oid": "5ff6419ceb96fc4654c69bc0"
+  },
+  "name": "Dress Shirt",
+  "description": "90% cotton / 10% polyester dress shirt.",
+  "price": "19.85",
+  "sku": "S631"
+}]

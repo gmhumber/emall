@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Playfair+Display:wght@400;700&display=swap');
+
+html {
+	box-sizing: border-box;
+}
+
+*, *::before, *::after {
+	box-sizing: inherit;
+}
+
+body {
+	margin: 0;
+	font-family: 'Montserrat', sans-serif;
+	color: #010101;
+    font-size: 16px;
+    max-width: 1200px;
+    margin: 0 auto; 
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    margin: 0 0 16px 0;
+}
+
+.nav-list {
+    padding: 0;
+}
+
+.nav-list li {
+    list-style-type: none;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.logo,
+.logo a:link,
+.logo a:visited,
+.nav-item,
+.nav-item a:link,
+.nav-item a:visited,
+footer,
+footer a:link,
+footer a:visited
+ {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.nav-item a:hover {
+    text-decoration: underline;
+}
+
+.heading-text {
+    font-size: 20px;
+}
+
+header {
+    margin: 0;
+    padding: 10px;
+    background-color: #28160B;
+}
+
+footer {
+    margin: 0;
+    background-color: #28160B;
+    padding: 20px 10px;
+}
+
+.banner {
+    text-align: center;
+    background-image: url('../images/bannerpic.jpg');
+    height: 500px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.banner h2 {
+    margin: 0;
+    padding: 130px 0 70px 0;
+    font-size: 50px;
+    color: white;
+    text-shadow: 3px 3px 6px #28160B;
+    font-family: 'Playfair Display', serif;
+}
+
+.banner-link a {
+    padding: 10px;
+    color: white;
+    background-color: #582F0F;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.banner-link a:hover {
+    background-color: #28160B;
+}
+
+.products-grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    grid-auto-rows: 1fr;
+    gap: 1vw;
+    justify-content: space-evenly;
+}
+
+.product-container {
+    border: solid 2px #28160B;
+    border-radius: 10px;
+    margin: 10px 0 10px 0;
+    padding: 10px;
+    box-shadow: 3px 3px 3px #28160B;
+}
+
+.totals {
+    font-weight: bold;
+}
+
+.btn {
+    margin: 10px 0 10px 0;
+    cursor: pointer;
+}
+
+.form-field {
+    margin: 10px 0 10px 0;
+}
+
+.cms-form-div {
+    margin: 10px 0 10px 0;
+}
+
+.cms-form-div input {
+    display: block;
+    width: 350px;
+}
+
+.deletebtn {
+    margin: 40px 0 20px 0;
+    background-color: rgb(172, 16, 16);
+    color: white;
+}
+
+.cms-subheading {
+    margin-top: 60px;
+}
+

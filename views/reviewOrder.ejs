@@ -1,0 +1,42 @@
+<%- include('includes/head.ejs') %>
+
+<%- include('includes/navigation.ejs') %>
+
+<main class="order-review-main">
+    <h2 class="heading-text">Review Order</h2>
+    
+    <p>Your total cost for this order is: <span class="totals">$<%= totalCost.toFixed(2).toString() %></span></p>
+
+    <p>Please review all of the items below which are currently in your cart before submitting your order.</p>
+
+    <form action="/submitOrder" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <input type="hidden" name="userId" value="<%= userObject._id %>">
+        <button class="btn" type="submit">Submit Order</button>
+    </form>
+
+    <% if (cartArray.length === 0) { %>
+        <p>Your cart is empty.</p>
+    <% } else { 
+    cartArray.forEach(e => { %>
+        <div class="product-container">
+            <h3><%= e.name %></h3>
+            <p>Item Description: <%= e.description %></p>
+            <p>Item Price (each): $<%= e.price.toString() %></p>
+            <p>Order Quantity: <%= e.quantity.toString() %></p>
+            <p class="totals">Subtotal: $<%= (e.price * e.quantity).toFixed(2).toString() %></p>         
+            
+            <form action="/removeItem" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                <input type="hidden" name="productId" value="<%= e._id %>">
+                <input type="hidden" name="userId" value="<%= userObject._id %>">
+                <button class="btn" type="submit">Remove Item From Cart</button>
+            </form>
+        </div>
+
+    <% })} %>
+
+</main>  
+
+<%- include('includes/end.ejs') %>

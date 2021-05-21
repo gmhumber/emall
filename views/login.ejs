@@ -1,0 +1,31 @@
+<%- include('includes/head.ejs') %>
+
+<%- include('includes/navigation.ejs') %>
+
+    <h2 class="heading-text">User Login</h2>
+
+    <p>Please login to your account. You must be logged in before reviewing or placing your order.</p>
+
+    <p>Don't have a user account yet? <a href="/createUser">Create your account here!</a></p>
+
+    <p>The default user account for this demo is:</p>
+    <p>Email: user@user.com</p>
+    <p>Password: user</p>
+
+    <form method="POST" action="/postLogin">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+        <div class="form-field">
+            <label for="email">Email: </label>
+            <input type="text" placeholder="Enter Email" name="email" id="email" required>            
+        </div>
+        <div class="form-field">
+            <label for="password">Password: </label>
+            <input type="password" placeholder="Enter Password" name="password" id="password" required>
+        </div>
+        <div>
+            <button type="submit" class="btn">Login</button>
+        </div>
+    </form>
+    
+<%- include('includes/end.ejs') %>

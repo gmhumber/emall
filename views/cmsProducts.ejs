@@ -1,0 +1,98 @@
+<%- include('includes/head.ejs') %>
+
+<%- include('includes/navigation.ejs') %>
+
+<main class="cms-products-main">
+    <h2 class="heading-text">CMS Portal: Add, Change and Delete Products</h2>
+        <p>On this page, you can <a href="#addform">add new products</a>, or <a href="#changedeleteform">change and delete existing products</a>.</p>
+
+    <h3 class="heading-text cms-subheading"><a id="addform">Add New Products</a></h3>
+    <p>Add new products to the eMall Store website by completing this form.</p>
+
+    <div class="product-container">
+        <form action="/cmsProductAdd" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            
+            <div class="cms-form-div">                
+                <label for="addName">Item Name: </label>
+                <input required type="text" id="addName" name="addName">
+            </div>
+
+            <div class="cms-form-div"> 
+                <label for="addDescription">Item Description: </label>
+                <input required type="text" id="addDescription" name="addDescription">
+            </div>
+            
+            <div class="cms-form-div">                 
+                <label for="addPrice">Item Price: </label>
+                <input required type="number" id="addPrice" name="addPrice" min="0" step=".01">
+            </div>
+
+            <div class="cms-form-div"> 
+                <label for="addSku">SKU: </label>
+                <input required type="text" id="addSku" name="addSku">
+            </div>
+
+            <div class="form-div">
+                <button class="btn" type="submit">Add Item</button>
+            </div>
+        </form>
+    </div>
+    
+   
+    <h3 class="heading-text cms-subheading"><a id="changedeleteform">Change or Delete Products</a></h3>
+        <p>Products listed on the eMall Store website can be changed or deleted. Here are a items currently on the store website.</p>
+        <p>Amend an item by changing the data in the fields. The current item data has been inserted into the fields. If a field does not require any changes, leave the default values.</p>
+
+    <% if (productsArray.length === 0) { %>
+        <p>No available products found.</p>
+    <% } else { 
+    productsArray.forEach(e => { %>
+        <div class="product-container">
+            <h3><%= e.name %> (Item ID: <%= e._id %>)</h3>
+                     
+            <form action="/cmsProductChange" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="originalProductId" value="<%= e._id %>">
+                
+                <div class="cms-form-div">                
+                    <label for="newName">Item Name: </label>
+                    <input required type="text" id="newName" name="newName" value="<%= e.name %>">
+                </div>
+
+                <div class="cms-form-div"> 
+                    <label for="newDescription">Item Description: </label>
+                    <input required type="text" id="newDescription" name="newDescription" value="<%= e.description %>">
+                </div>
+                
+                <div class="cms-form-div">                 
+                    <label for="newPrice">Item Price: </label>
+                    <input required type="number" id="newPrice" name="newPrice" value="<%= e.price.toString() %>" min="0" step=".01">
+                </div>
+
+                <div class="cms-form-div"> 
+                    <label for="newSku">SKU: </label>
+                    <input required type="text" id="newSku" name="newSku" value="<%= e.sku %>">
+                </div>
+
+                <div class="form-div">
+                    <button class="btn" type="submit">Change Item</button>
+                </div>
+            </form>
+
+            <form action="/cmsProductDelete" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="productId" value="<%= e._id %>">
+                
+                <div class="form-div">
+                    <button class="btn deletebtn" type="submit">Delete Item</button>
+                </div>
+            </form>
+
+        </div>
+
+    <% })} %>
+
+</main>  
+
+<%- include('includes/end.ejs') %>

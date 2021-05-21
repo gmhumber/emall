@@ -1,0 +1,17 @@
+[{
+  "_id": {
+    "$oid": "5ff5eddd3361a634b4416620"
+  },
+  "email": "admin@admin.com",
+  "password": "$2a$10$7JEXgDZo9ewK5cq.6dTNiurcm/YB024Xu0RW/p/2//91SNPCHRCc2",
+  "cart": [],
+  "privilages": "admin"
+},{
+  "_id": {
+    "$oid": "5ff5ee093361a634b4416621"
+  },
+  "email": "user@user.com",
+  "password": "$2a$10$Ijx1OsuZbUBw5BWjybq3D./IFswQMmYQX2Qd3RAPvrCSxdKt3c4k.",
+  "cart": [],
+  "privilages": "user"
+}]

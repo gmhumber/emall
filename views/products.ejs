@@ -1,0 +1,35 @@
+<%- include('includes/head.ejs') %>
+
+<%- include('includes/navigation.ejs') %>
+
+<main class="products-main">
+    <h2 class="heading-text">Available Products</h2>
+    <div class="products-grid-container">
+        <% if (productsArray.length === 0) { %>
+            <p>No available products found.</p>
+        <% } else { 
+        productsArray.forEach(e => { %>
+            <div class="product-container">
+                <h3><%= e.name %></h3>
+                <p>Item Description: <%= e.description %></p>
+                <p>Item Price: $<%= e.price.toString() %></p>
+                <p>SKU: <%= e.sku %></p>
+                <p>Product ID: <%= e._id %></p>         
+                
+                <form action="/cart" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                    <input type="hidden" name="productId" value="<%= e._id %>">
+                    <label for="quantity">Quantity: </label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1">
+                    <div>
+                        <button class="btn" type="submit">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+
+        <% })} %>
+    </div>
+</main>  
+
+<%- include('includes/end.ejs') %>
