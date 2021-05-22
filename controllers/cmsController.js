@@ -6,7 +6,8 @@ const bcryptjs = require('bcryptjs');
 
 
 function cmsLogin(req, res, next) {
-    res.render('cmsLogin.ejs', { pageTitle: 'CMS Portal Login' });
+    const authenticated = req.session.authenticated;
+    res.render('cmsLogin.ejs', { pageTitle: 'CMS Portal Login', authenticated: authenticated });
 };
 
 
@@ -82,7 +83,8 @@ function cmsProducts(req, res, next) {
                     .then(results => {
                         res.render('cmsProducts.ejs', { 
                             productsArray: results, 
-                            pageTitle: 'CMS Portal: Products' });
+                            pageTitle: 'CMS Portal: Products',
+                            authenticated: authenticated });
                     })
                     .catch(err => {
                         console.log(err);

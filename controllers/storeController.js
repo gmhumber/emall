@@ -9,16 +9,19 @@ const path = require('path');
 
 // Functions to render shopping and ordering pages
 function index(req, res, next) {
-    res.render('index.ejs', {pageTitle: 'eMall Store' });
+    const authenticated = req.session.authenticated;
+    res.render('index.ejs', {pageTitle: 'eMall Store', authenticated: authenticated });
 };
 
 function products(req, res, next) {
+    const authenticated = req.session.authenticated;
     const db = databaseController.getDb();
     db.collection('products').find().toArray()
         .then(results => {
             res.render('products.ejs', { 
                 productsArray: results, 
-                pageTitle: 'Available Products' });
+                pageTitle: 'Available Products',
+                authenticated: authenticated });
         })
         .catch(err => {
             console.log(err);
@@ -137,7 +140,8 @@ function reviewOrder(req, res, next) {
                 userObject: userObject, 
                 cartArray: cartArray,
                 totalCost: totalCost, 
-                pageTitle: 'Review Your Order' });
+                pageTitle: 'Review Your Order',
+                authenticated: authenticated });
         }).catch(err => {
             console.log(err);
             return res.redirect('/error');
@@ -145,7 +149,14 @@ function reviewOrder(req, res, next) {
 };
 
 function login(req, res, next) {
-    res.render('login.ejs', { pageTitle: 'User Login' });
+    const authenticated = req.session.authenticated;
+
+    if (authenticated === true) {
+        res.redirect('/');
+    } else {
+        res.render('login.ejs', { pageTitle: 'User Login', authenticated: authenticated });        
+    }
+
 };
 
 function postLogin(req, res, next) {
@@ -200,7 +211,14 @@ function postLogin(req, res, next) {
 };
 
 function createUser(req, res, next) {
-    res.render('createUser.ejs', { pageTitle: 'Create New User' });
+    const authenticated = req.session.authenticated;
+
+    if (authenticated === true) {
+        res.redirect('/login');
+    } else {
+        res.render('createUser.ejs', { pageTitle: 'Create New User', authenticated: authenticated });
+    }
+    
 };
 
 function postCreateUser(req, res, next) {
@@ -290,10 +308,16 @@ function removeItem(req, res, next) {
 
 
 function submitOrder(req, res, next) {
+    const authenticated = req.session.authenticated;
     const userId = req.body.userId;
     const db = databaseController.getDb();
     const orderFilePath = path.join(__dirname, '..', 'orders', 'order.txt');
     let orderString;
+
+    // Check that user has logged in before proceeding
+    if (authenticated !== true) {
+        return res.redirect('/login');
+    }; 
 
     // Obtain the cart items from the DB and write it to a file
     db.collection('users').findOne( { _id: ObjectId(userId) } )
@@ -307,7 +331,7 @@ function submitOrder(req, res, next) {
                     // Clear all existing cart data in the DB
                     db.collection('users').updateOne({ _id: ObjectId(userId) }, { $set: { cart: [] } })
                         .then((updateResult) => {
-                            return res.render('orderConfirmation.ejs', { pageTitle: 'Order Confirmation'});
+                            return res.render('orderConfirmation.ejs', { pageTitle: 'Order Confirmation', authenticated: authenticated});
                         }).catch((err) => {
                             console.log(err);
                             return res.redirect('/error');

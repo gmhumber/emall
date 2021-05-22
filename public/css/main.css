@@ -17,6 +17,11 @@ body {
     padding: 0 20px;
 }
 
+main {
+    min-height: 70vh;
+    padding: 0 15px;
+}
+
 .logo {
     font-family: 'Playfair Display', serif;
     font-size: 30px;
@@ -117,7 +122,8 @@ footer {
 }
 
 .btn {
-    margin: 10px 0 10px 0;
+    margin: 20px 0 15px 0;
+    padding: 3px;
     cursor: pointer;
 }
 
@@ -135,12 +141,32 @@ footer {
 }
 
 .deletebtn {
-    margin: 40px 0 20px 0;
     background-color: rgb(172, 16, 16);
+    color: white;
+}
+
+.purchasebtn {
+    background-color: green;
     color: white;
 }
 
 .cms-subheading {
     margin-top: 60px;
 }
+
+table {
+    border-collapse: collapse;
+    margin: 15px 0 15px 0;
+
+}
+
+th,
+td {
+    min-width: 12vw;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+  }
 

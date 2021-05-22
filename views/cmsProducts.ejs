@@ -2,7 +2,7 @@
 
 <%- include('includes/navigation.ejs') %>
 
-<main class="cms-products-main">
+<div class="cms-products-main">
     <h2 class="heading-text">CMS Portal: Add, Change and Delete Products</h2>
         <p>On this page, you can <a href="#addform">add new products</a>, or <a href="#changedeleteform">change and delete existing products</a>.</p>
 
@@ -40,59 +40,67 @@
     </div>
     
    
-    <h3 class="heading-text cms-subheading"><a id="changedeleteform">Change or Delete Products</a></h3>
-        <p>Products listed on the eMall Store website can be changed or deleted. Here are a items currently on the store website.</p>
-        <p>Amend an item by changing the data in the fields. The current item data has been inserted into the fields. If a field does not require any changes, leave the default values.</p>
+    <h3 class="heading-text cms-subheading">
+        <a id="changedeleteform">Change or Delete Products</a>
+    </h3>
 
     <% if (productsArray.length === 0) { %>
-        <p>No available products found.</p>
-    <% } else { 
-    productsArray.forEach(e => { %>
-        <div class="product-container">
-            <h3><%= e.name %> (Item ID: <%= e._id %>)</h3>
-                     
-            <form action="/cmsProductChange" method="POST">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <input type="hidden" name="originalProductId" value="<%= e._id %>">
-                
-                <div class="cms-form-div">                
-                    <label for="newName">Item Name: </label>
-                    <input required type="text" id="newName" name="newName" value="<%= e.name %>">
-                </div>
+        <p>No products are currently in the store database.</p>
+    <% } else { %>
 
-                <div class="cms-form-div"> 
-                    <label for="newDescription">Item Description: </label>
-                    <input required type="text" id="newDescription" name="newDescription" value="<%= e.description %>">
-                </div>
-                
-                <div class="cms-form-div">                 
-                    <label for="newPrice">Item Price: </label>
-                    <input required type="number" id="newPrice" name="newPrice" value="<%= e.price.toString() %>" min="0" step=".01">
-                </div>
+        <p>Products listed on the eMall Store website can be changed or deleted. Here are the items currently on the store website.</p>
+        <p>Amend an item by changing the data in the fields. The current item data has been inserted into the fields. If a field does not require any changes, leave the default values.</p>
 
-                <div class="cms-form-div"> 
-                    <label for="newSku">SKU: </label>
-                    <input required type="text" id="newSku" name="newSku" value="<%= e.sku %>">
-                </div>
+    <table>
+        <tr>
+            <th>Item Name</th>
+            <th>Item ID</th>
+            <th>Description</th>
+            <th>Price per item</th>
+            <th>SKU</th>
+            <th></th>
+            <th></th>
+        </tr>
 
-                <div class="form-div">
-                    <button class="btn" type="submit">Change Item</button>
-                </div>
-            </form>
+ 
+        <% productsArray.forEach(e => { %>
 
-            <form action="/cmsProductDelete" method="POST">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <input type="hidden" name="productId" value="<%= e._id %>">
-                
-                <div class="form-div">
-                    <button class="btn deletebtn" type="submit">Delete Item</button>
-                </div>
-            </form>
+                <tr>
+                    <form action="/cmsProductChange" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" name="originalProductId" value="<%= e._id %>">
+                        <td>
+                            <input required type="text" id="newName" name="newName" value="<%= e.name %>">
+                        </td>
+                        <td>
+                            <%= e._id %>                    
+                        </td>
+                        <td>
+                            <input required type="text" id="newDescription" name="newDescription" value="<%= e.description %>">
+                        </td>
+                        <td>
+                            <input required type="number" id="newPrice" name="newPrice" value="<%= e.price.toString() %>" min="0" step=".01">
+                        </td>
+                        <td>
+                            <input required type="text" id="newSku" name="newSku" value="<%= e.sku %>">
+                        </td>
+                        <td>
+                            <button class="btn" type="submit">Change Item</button>
+                        </td>
+                    </form>
+                    <form action="/cmsProductDelete" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" name="productId" value="<%= e._id %>">
+                        <td>
+                            <button class="btn deletebtn" type="submit">Delete Item</button>
+                        </td>
+                    </form>
+                </tr>
+    
+        <% })} %>
 
-        </div>
+    </table>
 
-    <% })} %>
-
-</main>  
+</div>  
 
 <%- include('includes/end.ejs') %>

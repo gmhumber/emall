@@ -2,41 +2,64 @@
 
 <%- include('includes/navigation.ejs') %>
 
-<main class="order-review-main">
+<div class="order-review-main">
     <h2 class="heading-text">Review Order</h2>
-    
-    <p>Your total cost for this order is: <span class="totals">$<%= totalCost.toFixed(2).toString() %></span></p>
-
-    <p>Please review all of the items below which are currently in your cart before submitting your order.</p>
-
-    <form action="/submitOrder" method="POST">
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <input type="hidden" name="userId" value="<%= userObject._id %>">
-        <button class="btn" type="submit">Submit Order</button>
-    </form>
 
     <% if (cartArray.length === 0) { %>
         <p>Your cart is empty.</p>
-    <% } else { 
-    cartArray.forEach(e => { %>
-        <div class="product-container">
-            <h3><%= e.name %></h3>
-            <p>Item Description: <%= e.description %></p>
-            <p>Item Price (each): $<%= e.price.toString() %></p>
-            <p>Order Quantity: <%= e.quantity.toString() %></p>
-            <p class="totals">Subtotal: $<%= (e.price * e.quantity).toFixed(2).toString() %></p>         
-            
-            <form action="/removeItem" method="POST">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <% } else { %>
 
-                <input type="hidden" name="productId" value="<%= e._id %>">
-                <input type="hidden" name="userId" value="<%= userObject._id %>">
-                <button class="btn" type="submit">Remove Item From Cart</button>
-            </form>
-        </div>
+        <p>Please review all of the items below which are currently in your cart before submitting your order.</p>
 
-    <% })} %>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Description</th>
+                <th>Price per item</th>
+                <th>Quantity in cart</th>
+                <th></th>
+                <th></th>
+            <tr>
 
-</main>  
+        <% cartArray.forEach(e => { %>
+
+            <tr>
+                <td><%= e.name %></td>
+                <td><%= e.description %></td>
+                <td>$<%= e.price.toString() %></td>
+                <td><%= e.quantity.toString() %></td>
+                <td>
+                    <form action="/removeItem" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" name="productId" value="<%= e._id %>">
+                        <input type="hidden" name="userId" value="<%= userObject._id %>">
+                        <button class="btn deletebtn" type="submit">Remove From Cart</button>
+                    </form>    
+                </td> 
+                <td>$<%= (e.price * e.quantity).toFixed(2).toString() %></td>  
+            </tr>
+
+            <% }) %>
+
+            <tr>
+                <td></td>
+                <td></td>  
+                <td></td>  
+                <td></td>  
+                <td></td>  
+                <td>
+                    <span class="totals">Total: $<%= totalCost.toFixed(2).toString() %></span>
+                    <form action="/submitOrder" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" name="userId" value="<%= userObject._id %>">
+                        <button class="btn purchasebtn" type="submit">Submit Order</button>
+                    </form>
+                </td>  
+            </tr>
+
+        </table>
+
+    <% } %>
+</div>  
 
 <%- include('includes/end.ejs') %>
